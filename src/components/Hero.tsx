@@ -1,4 +1,5 @@
 import { ArrowRight, ChevronDown } from 'lucide-react';
+import heroImg from '../assets/hero.png'; // <- added
 
 export default function Hero() {
   const scrollToSection = (id: string) => {
@@ -50,9 +51,10 @@ export default function Hero() {
           <div className="relative">
             <div className="bg-gray-100 rounded-2xl overflow-hidden shadow-xl aspect-[4/3]">
               <img
-                src="/src/assets/hero.png"
+                src={heroImg}
                 alt="Engineering and prototyping workspace"
                 className="w-full h-full object-cover"
+                loading="lazy"
               />
             </div>
 
