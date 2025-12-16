@@ -1,5 +1,5 @@
 import { ArrowRight, ChevronDown } from 'lucide-react';
-import heroImg from '../assets/hero.png'; // <- added
+import heroImg from '../assets/hero.png'; 
 
 export default function Hero() {
   const scrollToSection = (id: string) => {

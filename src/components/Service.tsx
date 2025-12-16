@@ -53,6 +53,26 @@ const services = [
       'Quality testing and validation',
     ],
   },
+
+  // ⭐ NEW SINGLE COMBINED CARD
+  {
+    icon: Factory,
+    title: 'Custom & Stock Material Solutions',
+    shortDesc: 'Tailored materials + reliable stock availability.',
+    description:
+      'We provide specialized material development for engineering needs along with ready-to-dispatch stock materials for rapid deployment.',
+    deliverables: [
+      // Custom Material Development
+      'Custom material formulation & prototyping',
+      'Mechanical and thermal performance testing',
+      'Small-batch production and validation',
+
+      // Stock Material Supply
+      'Industrial-grade plastics, metals, and composites',
+      'Bulk ordering and logistics coordination',
+      'Material quality inspection and traceability',
+    ],
+  },
 ];
 
 export default function Services() {
@@ -74,10 +94,15 @@ export default function Services() {
         <div className="grid md:grid-cols-2 gap-8">
           {services.map((service, index) => {
             const Icon = service.icon;
+            const isLast = index === services.length - 1;
+
             return (
               <div
                 key={index}
-                className="bg-gray-50 rounded-xl p-8 hover:shadow-lg transition-shadow border border-gray-200"
+                className={`
+                  bg-gray-50 rounded-xl p-8 hover:shadow-lg transition-shadow border border-gray-200
+                  ${isLast ? 'md:col-span-2 md:w-1/2 mx-auto' : ''}
+                `}
               >
                 {/* Icon + Title */}
                 <div className="flex items-start gap-4 mb-4">
