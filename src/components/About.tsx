@@ -78,7 +78,7 @@ export default function About() {
             }}
             className="bg-white text-[#E46351] px-8 py-4 rounded-lg hover:bg-gray-50 transition-colors font-medium text-lg"
           >
-            Schedule a Consultation
+            Connect Now
           </button>
         </div>
       </div>
