@@ -64,11 +64,9 @@ const services = [
     deliverables: [
       // Custom Material Development
       'Custom material formulation & prototyping',
-      'Mechanical and thermal performance testing',
-      'Small-batch production and validation',
+      'Material facilitation & Supply chain management',
 
       // Stock Material Supply
-      'Industrial-grade plastics, metals, and composites',
       'Bulk ordering and logistics coordination',
       'Material quality inspection and traceability',
     ],
