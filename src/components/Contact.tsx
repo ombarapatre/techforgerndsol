@@ -7,9 +7,9 @@ export default function Contact() {
     name: '',
     company: '',
     email: '',
-    message: '',
-    budget_bracket: ''
+    message: ''
   });
+
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -21,7 +21,14 @@ export default function Contact() {
     try {
       const { error } = await supabase
         .from('contact_submissions')
-        .insert([formData]);
+        .insert([
+          {
+            name: formData.name,
+            company: formData.company,
+            email: formData.email,
+            message: formData.message
+          }
+        ]);
 
       if (error) throw error;
 
@@ -30,8 +37,7 @@ export default function Contact() {
         name: '',
         company: '',
         email: '',
-        message: '',
-        budget_bracket: ''
+        message: ''
       });
 
       setTimeout(() => setStatus('idle'), 5000);
@@ -42,7 +48,9 @@ export default function Contact() {
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setFormData(prev => ({
       ...prev,
       [e.target.name]: e.target.value
@@ -52,6 +60,8 @@ export default function Contact() {
   return (
     <section id="contact" className="py-20 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        {/* Header */}
         <div className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
             Get In Touch
@@ -62,11 +72,14 @@ export default function Contact() {
         </div>
 
         <div className="grid lg:grid-cols-3 gap-12">
+
+          {/* Contact Info */}
           <div className="lg:col-span-1 space-y-6">
             <div>
               <h3 className="text-xl font-bold text-gray-900 mb-6">
                 Contact Information
               </h3>
+
               <div className="space-y-4">
                 {/* Email */}
                 <div className="flex items-start gap-4">
@@ -127,90 +140,66 @@ export default function Contact() {
             </div>
           </div>
 
+          {/* Form */}
           <div className="lg:col-span-2">
-            <form onSubmit={handleSubmit} className="bg-white rounded-xl p-8 shadow-md border border-gray-200">
+            <form
+              onSubmit={handleSubmit}
+              className="bg-white rounded-xl p-8 shadow-md border border-gray-200"
+            >
               <div className="grid md:grid-cols-2 gap-6 mb-6">
                 <div>
-                  <label htmlFor="name" className="block text-sm font-semibold text-gray-900 mb-2">
+                  <label className="block text-sm font-semibold text-gray-900 mb-2">
                     Name *
                   </label>
                   <input
                     type="text"
-                    id="name"
                     name="name"
                     required
                     value={formData.name}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#E46351] focus:border-transparent outline-none"
-                    placeholder="Your full name"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#E46351]"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="company" className="block text-sm font-semibold text-gray-900 mb-2">
+                  <label className="block text-sm font-semibold text-gray-900 mb-2">
                     Company
                   </label>
                   <input
                     type="text"
-                    id="company"
                     name="company"
                     value={formData.company}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#E46351] focus:border-transparent outline-none"
-                    placeholder="Company name"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#E46351]"
                   />
                 </div>
               </div>
 
               <div className="mb-6">
-                <label htmlFor="email" className="block text-sm font-semibold text-gray-900 mb-2">
+                <label className="block text-sm font-semibold text-gray-900 mb-2">
                   Email *
                 </label>
                 <input
                   type="email"
-                  id="email"
                   name="email"
                   required
                   value={formData.email}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#E46351] focus:border-transparent outline-none"
-                  placeholder="your.email@example.com"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#E46351]"
                 />
               </div>
 
               <div className="mb-6">
-                <label htmlFor="budget_bracket" className="block text-sm font-semibold text-gray-900 mb-2">
-                  Budget Bracket
-                </label>
-                <select
-                  id="budget_bracket"
-                  name="budget_bracket"
-                  value={formData.budget_bracket}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#E46351] focus:border-transparent outline-none bg-white"
-                >
-                  <option value="">Select budget range</option>
-                  <option value="under-1L">Under ₹1 Lakh</option>
-                  <option value="1L-5L">₹1-5 Lakhs</option>
-                  <option value="5L-10L">₹5-10 Lakhs</option>
-                  <option value="10L-25L">₹10-25 Lakhs</option>
-                  <option value="above-25L">Above ₹25 Lakhs</option>
-                </select>
-              </div>
-
-              <div className="mb-6">
-                <label htmlFor="message" className="block text-sm font-semibold text-gray-900 mb-2">
+                <label className="block text-sm font-semibold text-gray-900 mb-2">
                   Message *
                 </label>
                 <textarea
-                  id="message"
                   name="message"
                   required
+                  rows={6}
                   value={formData.message}
                   onChange={handleChange}
-                  rows={6}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#E46351] focus:border-transparent outline-none resize-none"
-                  placeholder="Tell us about your project requirements..."
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#E46351] resize-none"
                 />
               </div>
 
@@ -229,11 +218,9 @@ export default function Contact() {
               <button
                 type="submit"
                 disabled={status === 'loading'}
-                className="w-full bg-[#F07E6B] text-white px-8 py-4 rounded-lg hover:bg-[#E46351] transition-colors font-medium text-lg flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full bg-[#F07E6B] text-white px-8 py-4 rounded-lg hover:bg-[#E46351] font-medium text-lg flex items-center justify-center gap-2"
               >
-                {status === 'loading' ? (
-                  'Sending...'
-                ) : (
+                {status === 'loading' ? 'Sending...' : (
                   <>
                     Schedule Consultation
                     <Send size={20} />
